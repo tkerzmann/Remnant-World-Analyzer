@@ -68,16 +68,16 @@ sublocations = {
 
 
 mainLocations = {
- "City Overworld Zone1": "Fairview",
- "City Overworld Zone2": "Westcourt",
- "Wasteland Overworld Zone1": "TheEasternWind",
- "Wasteland Overworld Zone2": "TheScouringWaste",
- "Jungle Overworld Zone1": "TheVerdantStrand",
- "Jungle Overworld Zone2": "TheScaldingGlade",
- "Swamp Overworld Zone1": "TheFetidGlade",
- "Swamp Overworld Zone2": "TheMistFen",
- "Snow Overworld Zone1": "DrolniirWoods",
- "Snow Overworld Zone2": "DeepfrostExpanse"
+    "City Overworld Zone1": "Fairview",
+    "City Overworld Zone2": "Westcourt",
+    "Wasteland Overworld Zone1": "TheEasternWind",
+    "Wasteland Overworld Zone2": "TheScouringWaste",
+    "Jungle Overworld Zone1": "TheVerdantStrand",
+    "Jungle Overworld Zone2": "TheScaldingGlade",
+    "Swamp Overworld Zone1": "TheFetidGlade",
+    "Swamp Overworld Zone2": "TheMistFen",
+    "Snow Overworld Zone1": "DrolniirWoods",
+    "Snow Overworld Zone2": "DeepfrostExpanse"
 }
 
 function loadFile(o) {
@@ -122,7 +122,7 @@ function getWorldData(textArray, worldMode) {
     var currentMainLocation;
 
     if (worldMode == "#adventure") {
-        currentMainLocation = textArray[1].split("/")[1].split("_")[1]
+        currentMainLocation = textArray[1]?.split("/")[1]?.split("_")[1]
     } else {
         currentMainLocation = "Fairview"
     }
@@ -166,7 +166,7 @@ function getWorldData(textArray, worldMode) {
         //look for side dungeons
         if (textLine.search("SmallD") != -1) {
             eventType = "Side Dungeon"
-            eventName = textLine.split("/")[3].split("_")[2]
+            eventName = textLine.split("/")[3]?.split("_")[2]
             currentSublocation = sublocations[eventName]
             if (currentSublocation == undefined){
                 currentSublocation = "Not added yet"
@@ -176,7 +176,7 @@ function getWorldData(textArray, worldMode) {
         //look for overworld POI's
         if (textLine.search("OverworldPOI") != -1) {
             eventType = "Point of Interest"
-            eventName = textLine.split("/")[3].split("_")[2]
+            eventName = textLine.split("/")[3]?.split("_")[2]
             currentSublocation = currentMainLocation
             if (worldMode == "#adventure") {
                 currentSublocation = ''
@@ -190,7 +190,7 @@ function getWorldData(textArray, worldMode) {
         //Look for quest bosses
         if (textLine.search("Quest_Boss") != -1) {
             eventType = "World Boss"
-            eventName = textLine.split("/")[3].split("_")[2]
+            eventName = textLine.split("/")[3]?.split("_")[2]
             currentSublocation = sublocations[eventName]
             if (currentSublocation == undefined){
                 currentSublocation = "Not added yet"
@@ -200,7 +200,7 @@ function getWorldData(textArray, worldMode) {
         //look for sieges
         if (textLine.search("Siege") != -1) {
             eventType = "Siege"
-            eventName = textLine.split("/")[3].split("_")[2]
+            eventName = textLine.split("/")[3]?.split("_")[2]
             currentSublocation = sublocations[eventName]
             if (currentSublocation == undefined){
                 currentSublocation = "Not added yet"
@@ -210,7 +210,7 @@ function getWorldData(textArray, worldMode) {
         //look for minibosses
         if (textLine.search("Mini") != -1) {
             eventType = "Miniboss"
-            eventName = textLine.split("/")[3].split("_")[2]
+            eventName = textLine.split("/")[3]?.split("_")[2]
             currentSublocation = sublocations[eventName]
             if (currentSublocation == undefined){
                 currentSublocation = "Not added yet"
@@ -220,17 +220,17 @@ function getWorldData(textArray, worldMode) {
         //look for Item drops
         if (textLine.search("Quest_Event") != -1) {
             eventType = "Item Drop"
-            eventName = textLine.split("/")[3].split("_")[2]
+            eventName = textLine.split("/")[3]?.split("_")[2]
 
             // edge case for out of order items
-            if (textLine.split("/")[1].split("_")[1] != textArray[i - 1].split("/")[1].split("_")[1]) {
+            if (textLine.split("/")[1]?.split("_")[1] != textArray[i - 1]?.split("/")[1]?.split("_")[1]) {
                 currentSublocation = ''
             }
 
         }
 
         if (textLine.search("Overworld_Zone") != -1) {
-            currentMainLocation = textLine.split("/")[3].split("_")[1] + " " + textLine.split("/")[3].split("_")[2] + " " +  textLine.split("/")[3].split("_")[3]
+            currentMainLocation = textLine.split("/")[3]?.split("_")[1] + " " + textLine.split("/")[3]?.split("_")[2] + " " +  textLine.split("/")[3]?.split("_")[3]
             currentMainLocation = mainLocations[currentMainLocation]
 
         }
